@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>설정 페이지</title>
+  <link rel="stylesheet" href="./css/settings.css">
+</head>
+<body>
+<div class="form">
+  <div class="form-inner">
+    <header class="header">
+      <h2>설정</h2>
+      <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
+    </header>
+    <main>
+      <div class="setting-group">
+        <label for="font-size">글자 크기 변경:</label>
+        <select id="font-size" onchange="changeFontSize(this.value)">
+          <option value="1rem">기본</option>
+          <option value="1.25rem">크게</option>
+          <option value="1.5rem">아주 크게</option>
+        </select>
+      </div>
+      <div class="setting-group">
+        <label for="new-password">비밀번호 변경:</label>
+        <input type="password" id="new-password" placeholder="새 비밀번호">
+        <button class="btn btn--primary" onclick="changePassword()">변경</button>
+      </div>
+      <div class="setting-group">
+        <button class="btn btn--primary" onclick="deleteAccount()">회원 탈퇴</button>
+      </div>
+      <div class="setting-group">
+        <label for="voice-assist">음성 보조:</label>
+        <input type="checkbox" id="voice-assist" onchange="toggleVoiceAssist(this.checked)">
+      </div>
+    </main>
+  </div>
+</div>
+<script src="./js/settings.js"></script>
+</body>
+</html>
