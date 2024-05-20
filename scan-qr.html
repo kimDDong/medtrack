@@ -15,8 +15,8 @@
       <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
     </header>
     <main>
-      <div id="reader"></div>
-      <button class="btn btn--primary" onclick="startScanning()">QR 코드 스캔하기</button>
+      <video id="qrVideo" width="300" height="300" autoplay></video>
+      <button class="btn btn--primary" onclick="startScanning('scan')">QR 코드 스캔하기</button>
     </main>
   </div>
 </div>

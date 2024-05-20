@@ -17,3 +17,14 @@ function searchZipcode(target) {
         alert("우편번호를 입력해주세요.");
     }
 }
+
+function navigateTo(page) {
+    // 페이지 이동 로직
+    if (page == "agree"){
+        alert("Medtrack+ 회원가입을 축하드립니다!")
+        window.location.href = "./login.html";
+    }
+    if (page == "cancel"){
+        window.history.back();
+    }
+}

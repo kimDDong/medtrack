@@ -20,8 +20,9 @@
 }
 
 body {
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   height: 100vh;
   padding: var(--space-m);
@@ -31,29 +32,37 @@ body {
   background-color: var(--color-tertiary);
 }
 
-.form {
-  position: relative;
-  width: 100%;
-  max-width: 450px;
-  margin: 0 auto;
-}
-
 .add-medication-form {
   padding: var(--space-xl);
   background-color: white;
-  z-index: 1;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-l);
+  border-radius: var(--base-border-radius);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   font-weight: 700;
   font-size: calc(var(--font-size) * 1.5);
+  margin-bottom: var(--space-l);
+}
+
+.form-group {
+  margin-bottom: var(--space-l);
+}
+
+label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-size: calc(var(--font-size) / 1.65);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.input-field {
+  width: 100%;
+  padding: var(--space-m);
+  border-radius: var(--base-border-radius);
+  border: 2px solid var(--color-primary);
+  font-size: var(--font-size);
 }
 
 .btn {
@@ -69,7 +78,6 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 0.065rem;
   text-decoration: none;
-  margin-bottom: var(--space-m);
 }
 
 .btn--primary {
@@ -92,10 +100,4 @@ h2 {
 .btn--secondary:hover {
   color: var(--color-secondary);
   border-color: var(--color-secondary);
-}
-
-#qrcode {
-  margin-top: var(--space-l);
-  display: flex;
-  justify-content: center;
 }

@@ -13,3 +13,10 @@ navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
 function navigateBack() {
     window.history.back();
 }
+
+function navigateTo(page) {
+    // 페이지 이동 로직
+    if (page == "scan_fin"){
+        window.location.href = "./patient-info.html";
+    }
+}

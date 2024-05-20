@@ -31,7 +31,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function navigateTo(page) {
     // 페이지 이동 로직
-    alert(`${page} 페이지로 이동합니다.`);
+    if (page == "sendMedicationInfo"){
+        window.location.href = "./scan-qr.html";
+    }
+    if (page == "addMedication"){
+        window.location.href = "./add-medication.html";
+    }
+    if (page == "changeVoice"){
+        window.location.href = "./change-notification-sound.html";
+    }
+    if (page == "settings"){
+        window.location.href = "./settings.html";
+    }
+    if (page == "scan"){
+        window.location.href = "./medication-info.html";
+    }
 }
 
 function markAsTaken(medId) {
