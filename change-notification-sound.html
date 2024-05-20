@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알림 목소리 변경</title>
+  <link rel="stylesheet" href="./css/change-notification-sound.css">
+</head>
+<body>
+<div class="container">
+  <div class="notification-sound">
+    <h2>알림 목소리 변경</h2>
+    <div class="sound-list">
+      <h3>목소리 목록</h3>
+      <ul id="soundList">
+        <!-- 여기에 동적으로 목소리 목록이 추가될 것입니다. -->
+      </ul>
+    </div>
+    <div class="sound-actions">
+      <button class="btn btn--primary" onclick="recordSound()">목소리 녹음하기</button>
+      <input type="file" id="uploadSound" accept="audio/*" style="display: none;">
+      <button class="btn btn--primary" onclick="document.getElementById('uploadSound').click()">목소리 업로드</button>
+    </div>
+    <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
+  </div>
+</div>
+<script src="./js/change-notification-sound.js"></script>
+</body>
+</html>

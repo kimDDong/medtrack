@@ -1,0 +1,38 @@
+.container {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.qr-scan {
+  max-width: 400px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+video {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.btn--secondary {
+  background-color: #ccc;
+  color: #000;
+}

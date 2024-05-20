@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>환자 QR 코드 스캔</title>
+  <link rel="stylesheet" href="./css/scan-qr-patient.css">
+</head>
+<body>
+<div class="container">
+  <div class="qr-scan">
+    <h2>환자 QR 코드 스캔</h2>
+    <video id="qrVideo" width="300" height="300" autoplay></video>
+    <p>QR 코드가 화면에 나타날 때까지 기다려주세요...</p>
+    <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
+  </div>
+</div>
+<script src="./js/scan-qr-patient.js"></script>
+</body>
+</html>
