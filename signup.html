@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="form-container">
-    <form class="form" onsubmit="return validateForm()" autocomplete="off">
+    <form class="form" onsubmit="return false" autocomplete="off">
         <div class="form-inner">
             <h2>회원 가입</h2>
             <div class="input-wrapper">
@@ -17,27 +17,22 @@
                     <input type="text" id="register-username" />
                     <button type="button" class="btn btn--secondary" onclick="checkDuplicate()">중복확인</button>
                 </div>
-                <span class="error-message" id="username-error"></span>
             </div>
             <div class="input-wrapper">
                 <label for="register-password">비밀번호</label>
                 <input type="password" id="register-password" />
-                <span class="error-message" id="password-error"></span>
             </div>
             <div class="input-wrapper">
                 <label for="register-name">이름</label>
                 <input type="text" id="register-name" />
-                <span class="error-message" id="name-error"></span>
             </div>
             <div class="input-wrapper">
                 <label for="register-ssn">주민등록번호</label>
                 <input type="text" id="register-ssn" />
-                <span class="error-message" id="ssn-error"></span>
             </div>
             <div class="input-wrapper">
                 <label for="register-phone">전화번호</label>
                 <input type="text" id="register-phone" />
-                <span class="error-message" id="phone-error"></span>
             </div>
             <div class="input-wrapper">
                 <label for="register-address">거주지</label>
@@ -46,11 +41,18 @@
                     <button type="button" class="btn btn--secondary" onclick="searchZipcode('address')">우편번호 검색</button>
                 </div>
                 <input type="text" id="register-address" placeholder="주소" />
-                <span class="error-message" id="address-error"></span>
+            </div>
+            <div class="input-wrapper">
+                <label for="register-hospital">자주 가는 병원</label>
+                <div class="input-group">
+                    <input type="text" id="hospital-zipcode" placeholder="우편번호" />
+                    <button type="button" class="btn btn--secondary" onclick="searchZipcode('hospital')">우편번호 검색</button>
+                </div>
+                <input type="text" id="register-hospital" placeholder="병원 주소" />
             </div>
             <div class="btn-group">
-                <button class="btn btn--primary" type="submit" onclick="navigateTo('agree')">가입하기</button>
-                <button class="btn btn--secondary" type="reset" onclick="navigateTo('cancel')">취소</button>
+                <button class="btn btn--primary" type="submit">가입하기</button>
+                <button class="btn btn--secondary" type="reset">취소</button>
             </div>
         </div>
     </form>
