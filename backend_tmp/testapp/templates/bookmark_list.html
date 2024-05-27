@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookmark List</title>
+</head>
+<body>
+<h1>Django 사용자 입력받기</h1>
+  <h2>Django Form 이용하기</h2>
+  <hr>
+  <a href="{% url 'createform' %}">Django form을 이용한 사용자 입력받기</a>
+
+<div>
+    <h1>Bookmark List</h1>
+    <ul>
+        {% for bookmark in bookmarks %}
+            <li><a href="{% url 'detail' bookmark.id %}"> 제목: {{bookmark.name}}</a><br>저자: {{bookmark.url}} </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>

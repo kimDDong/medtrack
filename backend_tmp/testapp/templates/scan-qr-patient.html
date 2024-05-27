@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>환자 QR 코드 스캔</title>
+  <link rel="stylesheet" href="./css/scan-qr-patient.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.0/html5-qrcode.min.js"></script>
+</head>
+<body>
+<div class="form">
+  <div class="form-inner">
+    <header class="header">
+      <h2>환자 QR 코드 스캔</h2>
+      <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
+    </header>
+    <main>
+      <video id="qrVideo" width="300" height="300" autoplay></video>
+      <button class="btn btn--primary" onclick="startScanning('scan')">QR 코드 스캔하기</button>
+    </main>
+  </div>
+</div>
+<script src="./js/scan-qr-patient.js"></script>
+</body>
+</html>
