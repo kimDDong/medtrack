@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Cloning</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function generateAudio() {
+            const text = document.getElementById('text').value;
+            const language = document.getElementById('language').value;
+            const speakerKey = document.getElementById('speaker').value;
+            const referenceAudio = document.getElementById('referenceAudio').files[0];
+
+            const formData = new FormData();
+            formData.append('text', text);
+            formData.append('language', language);
+            formData.append('speaker_key', speakerKey);
+            formData.append('reference_audio', referenceAudio);
+
+            try {
+                const response = await axios.post('/api/tts', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    responseType: 'blob'
+                });
+
+                const audioBlob = new Blob([response.data], {type: 'audio/wav'});
+                const audioUrl = URL.createObjectURL(audioBlob);
+                document.getElementById('audio').src = audioUrl;
+
+                document.getElementById('downloadLink').href = audioUrl;
+                document.getElementById('downloadLink').download = 'output.wav';
+                document.getElementById('downloadLink').style.display = 'inline';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while generating the audio.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Voice Cloning</h1>
+    <form>
+        <label for="text">Text:</label><br>
+        <textarea id="text" rows="5" cols="50"></textarea><br>
+        <label for="language">Language:</label><br>
+        <select id="language">
+            <option value="KR">Korean</option>
+            <!-- Add more language options as needed -->
+        </select><br>
+        <label for="speaker">Speaker:</label><br>
+        <select id="speaker">
+            <option value="KR">Korean Speaker</option>
+            <!-- Add more speaker options as needed -->
+        </select><br>
+        <label for="referenceAudio">Reference Audio:</label><br>
+        <input type="file" id="referenceAudio" accept="audio/*"><br>
+        <button type="button" onclick="generateAudio()">Generate Audio</button>
+    </form>
+    <br>
+    <audio id="audio" controls></audio>
+    <br>
+    <a id="downloadLink" style="display: none;">Download Audio</a>
+</body>
+</html>
