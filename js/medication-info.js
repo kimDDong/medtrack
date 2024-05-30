@@ -1,20 +1,36 @@
-function navigateBack() {
+document.addEventListener('DOMContentLoaded', () => {
+  // Define the information you want to encode in the QR code
+  const medicationInfo = {
+    patientName: "홍길동",
+    medication: "아스피린 100mg",
+    dosage: "하루 1회",
+    duration: "7일",
+    doctor: "김의사",
+    contact: "010-1234-5678"
+  };
+
+  // Convert the medication information to a JSON string
+  const medicationInfoStr = JSON.stringify(medicationInfo);
+
+  // Select the QR code div
+  const qrCodeDiv = document.getElementById('qrcode');
+
+  // Generate the QR code
+  QRCode.toDataURL(medicationInfoStr, { errorCorrectionLevel: 'H' }, function (error, url) {
+    if (error) {
+      console.error(error);
+      return;
+    }
+    // Create an image element to hold the QR code
+    const img = document.createElement('img');
+    img.src = url;
+    qrCodeDiv.appendChild(img);
+    console.log('QR code generated!');
+  });
+
+  // Back button functionality
+  const backButton = document.getElementById('back-button');
+  backButton.addEventListener('click', () => {
     window.history.back();
-}
-
-function generateQRCode() {
-    const medicationInfo = {
-        patientName: "김동현",
-        medications: [
-            { name: "약물 A", dose: "1알", times: "하루 3회" },
-            { name: "약물 B", dose: "2알", times: "하루 2회" }
-        ]
-    };
-
-    const qrData = JSON.stringify(medicationInfo);
-
-    QRCode.toCanvas(document.getElementById('qrcode'), qrData, function (error) {
-        if (error) console.error(error);
-        console.log('QR 코드 생성 완료!');
-    });
-}
+  });
+});
