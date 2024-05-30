@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.urls import re_path
 
 # 각 url에 매핑시킬 뷰들을 bookmark의 views.py에서 가져와 import
-from testapp.views import BookmarkListView, BookmarkDetailView, TestView, TestView2, login
+from testapp.views import BookmarkListView, BookmarkDetailView, TestView, TestView2, login, add_medication, change_settings
 
 
 """
@@ -21,4 +21,6 @@ urlpatterns = [
     re_path(r'^createform/$', TestView, name='createform'),
     re_path(r'^signup/$', TestView2, name='signup'),
     re_path(r'^index/$', login, name='login'),
+    re_path(r'^index/add-medication/$', add_medication, name='add_medication'),
+    re_path(r'^index/settings/$', change_settings, name='change_settings'),
 ]

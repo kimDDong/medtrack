@@ -8,18 +8,19 @@
 </head>
 <body>
 <div class="form">
+  <form class="form" action="{% url 'change_settings' %}" method='POST'>
   <div class="form-inner">
     <header class="header">
       <h2>설정</h2>
-      <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
+      <button class="btn btn--secondary" onclick="navigateBack()" type="submit">뒤로가기</button>
     </header>
     <main>
       <div class="setting-group">
-        <label for="font-size">글자 크기 변경:</label>
-        <select id="font-size" onchange="changeFontSize(this.value)">
-          <option value="1rem">기본</option>
-          <option value="1.25rem">크게</option>
-          <option value="1.5rem">아주 크게</option>
+        <label for="font_size">글자 크기 변경:</label>
+        <select id="font_size" name="font_size" onchange="changeFontSize(this.value)">
+          <option name="font_size" value=1>기본</option>
+          <option name="font_size" value=2>크게</option>
+          <option name="font_size" value=3>아주 크게</option>
         </select>
       </div>
       <div class="setting-group">
@@ -36,6 +37,7 @@
       </div>
     </main>
   </div>
+  </form>
 </div>
 <script src="./js/settings.js"></script>
 </body>

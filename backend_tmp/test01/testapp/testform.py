@@ -4,14 +4,11 @@ from .models import Bookmark
 # Create your models here.
 
 
-#이게 모델 (db?)
 class BookForm(forms.Form):
-    #이 내용이 저장되는 (입력할 수 있는) db가 만들어짐
     name = forms.CharField(max_length=100)
     url = forms.CharField(max_length=100)
 
 class gaip(forms.Form):
-    #이 내용이 저장되는 (입력할 수 있는) db가 만들어짐
     user_id = forms.CharField(max_length=100)
     password = forms.CharField(max_length=100)
     name = forms.CharField(max_length=100)
@@ -24,3 +21,9 @@ class login(forms.Form) :
     user_id = forms.CharField(max_length=100)
     password = forms.CharField(max_length=100)
 
+class addMedi(forms.Form):
+    name = forms.CharField(max_length=100)
+    company = forms.CharField(max_length=100)
+
+class set(forms.Form):
+    font_size = forms.IntegerField()

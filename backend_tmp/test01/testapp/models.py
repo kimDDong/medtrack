@@ -24,34 +24,41 @@ class user_personal_info(models. Model):
 
 class medication_info(models.Model):
     # index = models.AutoField()
-    user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
+    user_id = models.CharField(max_length=20, null=False, blank=False)
+    # user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
     medication = models.CharField(max_length=100, null=False, blank=False)
     manual_addition = models.BooleanField(default=False, null=False, blank=False)
     daily_intake = models.PositiveIntegerField(null=False, blank=False)
     added_date = models.DateField(null=False, blank=False)
 
 class daily_intake_info(models.Model) :
-    medication_id = models.ForeignKey(medication_info, on_delete=models.CASCADE)
+    user_id = models.CharField(max_length=20, null=False, blank=False, default='test')
+    # medication_id = models.ForeignKey(medication_info, on_delete=models.CASCADE)
     date = models.DateField(null=False, blank=False)
     actual_intake = models.PositiveIntegerField(null=False, blank=False)
 
 class hospital_history(models.Model) :
-    user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
+    user_id = models.CharField(max_length=20, null=False, blank=False)
+    # user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
     date = models.DateField(null=False, blank=False)
     disease = models.CharField(max_length=100, null=False, blank=False)
     prescription = models.CharField(max_length=100, null=False, blank=False)
 
 class voice_ai(models.Model) :
-    user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
+    user_id = models.CharField(max_length=20, null=False, blank=False)
+    # user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
     parameters = models.CharField(max_length=100, null=False, blank=False) #temporary
 
 class user_settings(models.Model) :
-    user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
+    user_id = models.CharField(max_length=20, null=False, blank=False)
+    # user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
     font_size = models.PositiveIntegerField(null=False, blank=False, default=1)
 
 
 # 없어야되는데 임시로 만들어놓았습니다, 실제로 정보가 저장되지는 않음
 class login_info(models.Model):
     # index = models.AutoField()
-    user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
+    user_id = models.CharField(max_length=20, null=False, blank=False)
     password = models.CharField(max_length=20, null=False, blank=False)
+    login_time = models.DateField(auto_now=True)
+    # login_time = models.PositiveIntegerField(null=False, blank=False)
