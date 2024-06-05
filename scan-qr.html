@@ -15,11 +15,11 @@
       <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
     </header>
     <main>
-      <div id="reader" style="width: 300px; height: 300px;"></div>
-      <button class="btn btn--primary" onclick="startScanning()">QR 코드 스캔하기</button>
+      <video id="video" autoplay></video>
     </main>
   </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
 <script src="./js/scan-qr.js"></script>
 </body>
 </html>
