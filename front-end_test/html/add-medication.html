@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>약물 추가</title>
+  <link rel="stylesheet" href="./css/add-medication.css">
+</head>
+<body>
+<div class="container">
+  <div class="add-medication-form">
+    <h2>약물 추가</h2>
+    <form id="medicationForm" class="form">
+      <div class="form-group">
+        <label for="medicationName">약물 이름</label>
+        <input type="text" id="medicationName" name="medicationName" class="input-field">
+      </div>
+      <div class="form-group">
+        <label for="knownMedication">알고 계신 약물인가요?</label>
+        <select id="knownMedication" name="knownMedication" class="input-field">
+          <option value="yes">예</option>
+          <option value="no">아니오</option>
+        </select>
+      </div>
+      <div id="additionalQuestions" style="display: none;">
+        <div class="form-group">
+          <label for="disease">약물을 복용하는 이유</label>
+          <input type="text" id="disease" name="disease" class="input-field">
+        </div>
+        <div class="form-group">
+          <label for="color">약물 색상</label>
+          <input type="text" id="color" name="color" class="input-field">
+        </div>
+      </div>
+      <button type="submit" class="btn btn--primary">약물 추가하기</button>
+      <button type="button" class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
+    </form>
+  </div>
+</div>
+<script src="./js/add-medication.js"></script>
+</body>
+</html>

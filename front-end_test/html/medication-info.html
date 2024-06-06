@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>약물 복용 정보 전송</title>
+  <link rel="stylesheet" href="./css/medication-info.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+</head>
+<body>
+<div class="form">
+  <div class="form-inner">
+    <header class="header">
+      <h2>약물 복용 정보 전송</h2>
+      <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
+    </header>
+    <main>
+      <button class="btn btn--primary" onclick="generateQRCode()">QR 생성하기</button>
+      <div id="qrcode"></div>
+    </main>
+  </div>
+</div>
+<script src="./js/medication-info.js"></script>
+</body>
+</html>

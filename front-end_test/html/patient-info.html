@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>환자 정보</title>
+  <link rel="stylesheet" href="./css/patient-info.css">
+</head>
+<body>
+<div class="container">
+  <div class="patient-info">
+    <h2 id="patientName">환자 이름</h2>
+    <div class="info-section">
+      <h3>최근 내원 이력</h3>
+      <ul id="recentVisits">
+        <!-- 최근 내원 이력이 여기에 동적으로 추가될 것입니다. -->
+      </ul>
+    </div>
+    <div class="info-section">
+      <h3>처방 목록</h3>
+      <ul id="prescriptionList">
+        <!-- 처방 목록이 여기에 동적으로 추가될 것입니다. -->
+      </ul>
+    </div>
+    <div class="info-section">
+      <h3>약물 복용 여부</h3>
+      <p id="medicationStatus">약물 복용 여부를 여기에 출력합니다.</p>
+    </div>
+    <div class="info-actions">
+      <button class="btn btn--primary" onclick="savePatientInfo()">환자 정보 저장</button>
+      <button class="btn btn--primary" onclick="loadPatientInfo()">환자 정보 불러오기</button>
+    </div>
+    <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
+  </div>
+</div>
+<script src="./js/patient-info.js"></script>
+</body>
+</html>
