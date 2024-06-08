@@ -26,7 +26,7 @@ class AddMedicationViewTest(TestCase):
             added_date=DateFormat(datetime.now()).format('Y-m-d')
         )
 
-         def test_add_medication(self):
+        def test_add_medication(self):
         # 发送 POST 请求添加药物
         response = self.client.post(reverse('add_medication'), data=self.valid_data)
 

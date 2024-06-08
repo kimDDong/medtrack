@@ -151,37 +151,3 @@ def test_register_user_with_invalid_password(user_management):
         '222222-3333333', 'Bob White', 'bobwhite', 'abc12df3!', '010-2222-3333', '101 Main St', 'West Hospital'
     )
     assert result == "Password must be at least 8 characters long."
-
-
-# 예제
-# class TestView2Test(TestCase):
-#     def setUp(self):
-#         # 예제샘플
-#         self.valid_data = {
-#              'social_number' : '12345678901234',
-#              'name' : 'Hong Gildong',
-#              'user_id' : 'HG',
-#              'password' : 'password123',
-#              'phone_number' : '12345677890',
-#              'address' : '123 Main St',
-#              'preferred_hospital' : 'General Hospital'
-#         }
-#         self.assertTrue(user_personal_info.objects.filter(user_id='HG').exists())
-
-#         response = self.client.post(reverse('test_view_2'),data=self.valid_data)
-
-        
-#         # 필드 유효한지 검사
-#         user_info = user_personal_info.objects.get(user_id='HG')
-#         self.assertEqual(user_info.password, 'password123')
-#         self.assertEqual(user_info.social_number, '12345678901234')
-#         self.assertEqual(user_info.phone_number, '12345677890')
-#         self.assertEqual(user_info.address, '123 Main St')
-#         self.assertEqual(user_info.preferred_hospital, 'General Hospital')
-
-
-#     # def test_invalid_form_submission(self):
- 
-#     #     response = self.client.post(reverse('test_view_2'), data=invalid_data)
-
-#     #     self.assertFalse(user_personal_info.objects.filter(name='Hong Gildong').exists())
