@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'medication-info.css' %}">
+<!--    <link rel="stylesheet" href="{% static 'medication-info.js' %}">-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>약물 복용 정보 전송</title>
-  <link rel="stylesheet" href="./css/medication-info.css">
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+<!--  <link rel="stylesheet" href="./css/medication-info.css">-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>-->
 </head>
 <body>
 <div class="form">
@@ -15,11 +18,20 @@
       <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
     </header>
     <main>
-      <button class="btn btn--primary" onclick="generateQRCode()">QR 생성하기</button>
       <div id="qrcode"></div>
     </main>
   </div>
+    <div id="tmp_data" style="display: none">
+        {% for list in lists %}
+          {{list.date}}: {{list.prescription}} - 용법: 1일 {{list.daily_intake}}회, 기간:{{list.duration}}일
+        {% endfor %}
+        {% for list in lists2 %}
+          {{list.date}}: {{list.medication}} - {{list.daily_intake}} 중 {{list.actual_intake}}
+        {% endfor %}
+    </div>
 </div>
-<script src="./js/medication-info.js"></script>
+<script src="{% static '/js/medication-info.js' %}"></script>
+<script src="{% static '/js/tmp_qr3.js' %}"></script>
+<!--<script src="./js/medication-info.js"></script>-->
 </body>
 </html>

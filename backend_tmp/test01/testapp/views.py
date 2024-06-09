@@ -1,9 +1,11 @@
 from datetime import datetime
+
+import alert as alert
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, get_object_or_404
 from django.utils.dateformat import DateFormat
 # Bookmark 테이블의 데이터를 가져오기 위해 models.py에서 Bookmark 클래스를 import
-from .models import Bookmark, user_personal_info, medication_info, daily_intake_info, login_info, user_settings
+from .models import *
 # 새로 import 하는 모듈
 from django.db import connection
 from .testform import BookForm, gaip, login, addMedi, set
@@ -19,6 +21,14 @@ import pandas as pd
 import bs4
 from lxml import html
 from urllib.parse import urlencode, quote_plus, unquote
+
+#asdfadsfasdfasdf
+import os
+import torch
+from openvoice import se_extractor
+from openvoice.api import ToneColorConverter
+from melo.api import TTS
+# from test import test_voice
 
 #회원가입
 @csrf_exempt
@@ -49,6 +59,10 @@ def login(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         password = request.POST.get('password')
+        if user_id == "" or password == "" :
+            # signup으로 이동
+            form = user_personal_info()
+            return render(request, 'signup.html', {'signup': form})
         try :
             data = user_personal_info.objects.get(user_id=user_id) #이게 DB에서 정보를 가져오는 방법입니다.
         except user_personal_info.DoesNotExist:
@@ -64,7 +78,9 @@ def login(request):
             HttpResponse(f'로그인 성공! {user_id} 님 환영합니다!')
             return render(request, 'main.html')
         else :
-            return HttpResponse(f'로그인 실패')
+            HttpResponse(f'아이디 혹은 비밀번호를 다시 확인해주세요.')
+            form = login_info()
+            return render(request, 'index.html', {'login': form})
     form = login_info()
     return render(request, 'index.html', {'login': form})
 
@@ -109,6 +125,323 @@ def change_settings(request):
         return render(request, 'main.html')
     form = user_settings()
     return render(request, 'settings.html', {'form': form})
+
+#설정 변경입니다. 여기서는 우선 font_size를 변경했을 때입니다.
+@csrf_exempt
+def add_daily(request):
+    user_id = request.session['user']
+    data = medication_info.objects.get(user_id=user_id)
+    std = daily_intake_info()
+    std.user_id = user_id
+    std.date = DateFormat(datetime.now()).format('Y-m-d')
+    std.medication = data.medication
+    std.actual_intake = 0
+    std.save()
+    print("추가 완료")
+    return render(request, 'main.html')
+
+def after_add_daily(request):
+    user_id = request.session['user']
+    data = daily_intake_info.objects.filter(user_id=user_id) & daily_intake_info.objects.filter(date=DateFormat(datetime.now()).format('Y-m-d'))
+    if request.method == 'POST':
+        print("hereasdfasdfasdfasdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    print(data)
+    for d in data:
+        print("여긴가?", d)
+    try:
+        lists = []
+        print("여기까진 왔나?2")
+        for d in data:
+            print(user_id, d.medication)
+            date2 = medication_info.objects.filter(user_id=user_id) & medication_info.objects.filter(medication=d.medication)
+            for d2 in date2 :
+                data2 = d2
+                break
+            print(d, data2.daily_intake)
+            print(d.medication, d.actual_intake)
+            row = {'medication': d.medication,
+                   'actual_intake': d.actual_intake,
+                   'daily_intake': data2.daily_intake
+                   }
+            print(row)
+            lists.append(row)
+        print("여기까진 왔나?")
+        # return render(request, 'main.html', {'lists': lists})
+    except:
+        # connection.rollback()
+        print("Failed selecting in BookListView")
+    return render(request, 'main.html', {'lists': lists})
+
+@csrf_exempt
+def change_notification_sound(request):
+
+    user_id = request.session['user']
+    if request.method == 'POST':
+        std = voice_ai()
+        std.user_id = user_id
+        print(request.POST.get)
+        std.parameters = request.FILES.get('uploadSound')
+        std.user_id = 'test'
+        print(std.user_id, std.parameters)
+        print("여기까진 잘 왔나?")
+        std.save()
+        print("추가 완료")
+        # change_notification_sound_(std.parameters, "테스트입니다. 이 부분이 바뀌어야겠죠?")
+        test_voice(std.parameters, "테스트입니다. 이 부분이 바뀌어야겠죠?")
+    else :
+        form = voice_ai()
+        return render(request, 'change-notification-sound.html', {'change_sound': form})
+
+
+    # data = daily_intake_info.objects.filter(user_id=user_id) & daily_intake_info.objects.filter(date=DateFormat(datetime.now()).format('Y-m-d'))
+    # if request.method == 'POST':
+    #     print("hereasdfasdfasdfasdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    # print(data)
+    # for d in data:
+    #     print("여긴가?", d)
+    # try:
+    #     lists = []
+    #     print("여기까진 왔나?2")
+    #     for d in data:
+    #         print(user_id, d.medication)
+    #         date2 = medication_info.objects.filter(user_id=user_id) & medication_info.objects.filter(medication=d.medication)
+    #         for d2 in date2 :
+    #             data2 = d2
+    #             break
+    #         print(d, data2.daily_intake)
+    #         print(d.medication, d.actual_intake)
+    #         row = {'medication': d.medication,
+    #                'actual_intake': d.actual_intake,
+    #                'daily_intake': data2.daily_intake
+    #                }
+    #         print(row)
+    #         lists.append(row)
+    #     print("여기까진 왔나?")
+    #     # return render(request, 'main.html', {'lists': lists})
+    # except:
+    #     # connection.rollback()
+    #     print("Failed selecting in BookListView")
+    return render(request, 'change-notification-sound.html')
+
+def change_notification_sound_(filename, notification) :
+    ckpt_converter = 'OpenVoice/checkpoints_v2/converter'
+    device = "cuda:0" if torch.cuda.is_available() else "cpu"
+    output_dir = 'media/outputs'
+    print("여기")
+    tone_color_converter = ToneColorConverter(f'{ckpt_converter}/config.json', device=device)
+    tone_color_converter.load_ckpt(f'{ckpt_converter}/checkpoint.pth')
+    os.makedirs(output_dir, exist_ok=True)
+    print("여기2")
+    reference_speaker = 'media/'+str(filename)  # This is the voice you want to clone
+    target_se, audio_name = se_extractor.get_se(reference_speaker, tone_color_converter, vad=False)
+    texts = {
+        'KR': str(notification),
+    }
+    print("여기3")
+    src_path = f'{output_dir}/tmp.wav'
+    speed = 1.0
+    for language, text in texts.items():
+        model = TTS(language=language, device=device)
+        speaker_ids = model.hps.data.spk2id
+
+        for speaker_key in speaker_ids.keys():
+            speaker_id = speaker_ids[speaker_key]
+            speaker_key = speaker_key.lower().replace('_', '-')
+
+            source_se = torch.load(f'OpenVoice/checkpoints_v2/base_speakers/ses/{speaker_key}.pth', map_location=device)
+            model.tts_to_file(text, speaker_id, src_path, speed=speed)
+            save_path = f'{output_dir}/output_v2_{speaker_key}.wav'
+
+            # Run the tone color converter
+            encode_message = "@MyShell"
+            tone_color_converter.convert(
+                audio_src_path=src_path,
+                src_se=source_se,
+                tgt_se=target_se,
+                output_path=save_path,
+                message=encode_message)
+
+def patient_info(request):
+    user_id = request.session['user']
+    data = hospital_history.objects.filter(user_id=user_id)
+    print(user_id, data)
+    if request.method == 'POST':
+        print("hereasdfasdfasdfasdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    print(data)
+    for d in data:
+        print("여긴가?", d)
+    try:
+        lists = []
+        print("여기까진 왔나?2")
+        for d in data:
+            print(user_id, d.date, d.disease, d.prescription)
+            # date2 = medication_info.objects.filter(user_id=user_id) & medication_info.objects.filter(medication=d.medication)
+            # for d2 in date2 :
+            #     data2 = d2
+            #     break
+            # print(d, data2.daily_intake)
+            # print(d.medication, d.actual_intake)
+            row = {'date': d.date,
+                   'disease': d.disease,
+                   'prescription': d.prescription,
+                   'daily_intake': d.daily_intake,
+                   'duration': d.duration
+                   }
+            print(row)
+            lists.append(row)
+        lists2 = []
+        data2 = daily_intake_info.objects.filter(user_id=user_id)
+        for d in data2 :
+            row = {'date': d.date,
+                   'medication': d.medication,
+                   'actual_intake': d.actual_intake,
+                   'daily_intake': d.daily_intake
+                   }
+            lists2.append(row)
+        print("여기까진 왔나?")
+        # return render(request, 'main.html', {'lists': lists})
+    except:
+        # connection.rollback()
+        print("Failed selecting in BookListView")
+    print("여기&&&&", lists)
+    return render(request, 'patient-info.html', {'lists': lists, 'lists2': lists2})
+
+def scan_qr(request):
+    # user_id = request.session['user']
+    # data = hospital_history.objects.filter(user_id=user_id)
+    # print(user_id, data)
+    # if request.method == 'POST':
+    #     print("hereasdfasdfasdfasdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    # print(data)
+    # for d in data:
+    #     print("여긴가?", d)
+    # try:
+    #     lists = []
+    #     print("여기까진 왔나?2")
+    #     for d in data:
+    #         print(user_id, d.date, d.disease, d.prescription)
+    #         # date2 = medication_info.objects.filter(user_id=user_id) & medication_info.objects.filter(medication=d.medication)
+    #         # for d2 in date2 :
+    #         #     data2 = d2
+    #         #     break
+    #         # print(d, data2.daily_intake)
+    #         # print(d.medication, d.actual_intake)
+    #         row = {'date': d.date,
+    #                'disease': d.disease,
+    #                'prescription': d.prescription,
+    #                'daily_intake': d.daily_intake,
+    #                'duration': d.duration
+    #                }
+    #         print(row)
+    #         lists.append(row)
+    #     lists2 = []
+    #     data2 = daily_intake_info.objects.filter(user_id=user_id)
+    #     for d in data2 :
+    #         row = {'date': d.date,
+    #                'medication': d.medication,
+    #                'actual_intake': d.actual_intake,
+    #                'daily_intake': d.daily_intake
+    #                }
+    #         lists2.append(row)
+    #     print("여기까진 왔나?")
+    #     # return render(request, 'main.html', {'lists': lists})
+    # except:
+    #     # connection.rollback()
+    #     print("Failed selecting in BookListView")
+    # print("여기&&&&", lists)
+    # return render(request, 'patient-info.html', {'lists': lists, 'lists2': lists2})
+    return render(request, 'scan-qr.html')
+
+def scan_qr_patient(request):
+    # user_id = request.session['user']
+    # data = hospital_history.objects.filter(user_id=user_id)
+    # print(user_id, data)
+    # if request.method == 'POST':
+    #     print("hereasdfasdfasdfasdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    # print(data)
+    # for d in data:
+    #     print("여긴가?", d)
+    # try:
+    #     lists = []
+    #     print("여기까진 왔나?2")
+    #     for d in data:
+    #         print(user_id, d.date, d.disease, d.prescription)
+    #         # date2 = medication_info.objects.filter(user_id=user_id) & medication_info.objects.filter(medication=d.medication)
+    #         # for d2 in date2 :
+    #         #     data2 = d2
+    #         #     break
+    #         # print(d, data2.daily_intake)
+    #         # print(d.medication, d.actual_intake)
+    #         row = {'date': d.date,
+    #                'disease': d.disease,
+    #                'prescription': d.prescription,
+    #                'daily_intake': d.daily_intake,
+    #                'duration': d.duration
+    #                }
+    #         print(row)
+    #         lists.append(row)
+    #     lists2 = []
+    #     data2 = daily_intake_info.objects.filter(user_id=user_id)
+    #     for d in data2 :
+    #         row = {'date': d.date,
+    #                'medication': d.medication,
+    #                'actual_intake': d.actual_intake,
+    #                'daily_intake': d.daily_intake
+    #                }
+    #         lists2.append(row)
+    #     print("여기까진 왔나?")
+    #     # return render(request, 'main.html', {'lists': lists})
+    # except:
+    #     # connection.rollback()
+    #     print("Failed selecting in BookListView")
+    # print("여기&&&&", lists)
+    # return render(request, 'patient-info.html', {'lists': lists, 'lists2': lists2})
+    return render(request, 'scan-qr-patient.html')
+
+def medication_info(request):
+    user_id = request.session['user']
+    data = hospital_history.objects.filter(user_id=user_id)
+    print(user_id, data)
+    if request.method == 'POST':
+        print("hereasdfasdfasdfasdfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    print(data)
+    for d in data:
+        print("여긴가?", d)
+    try:
+        lists = []
+        print("여기까진 왔나?2")
+        for d in data:
+            print(user_id, d.date, d.disease, d.prescription)
+            # date2 = medication_info.objects.filter(user_id=user_id) & medication_info.objects.filter(medication=d.medication)
+            # for d2 in date2 :
+            #     data2 = d2
+            #     break
+            # print(d, data2.daily_intake)
+            # print(d.medication, d.actual_intake)
+            row = {'date': d.date,
+                   'disease': d.disease,
+                   'prescription': d.prescription,
+                   'daily_intake': d.daily_intake,
+                   'duration': d.duration
+                   }
+            print(row)
+            lists.append(row)
+        lists2 = []
+        data2 = daily_intake_info.objects.filter(user_id=user_id)
+        for d in data2 :
+            row = {'date': d.date,
+                   'medication': d.medication,
+                   'actual_intake': d.actual_intake,
+                   'daily_intake': d.daily_intake
+                   }
+            lists2.append(row)
+        print("여기까진 왔나?")
+        # return render(request, 'main.html', {'lists': lists})
+    except:
+        # connection.rollback()
+        print("Failed selecting in BookListView")
+    print("여기&&&&", lists)
+    return render(request, 'medication-info.html', {'lists': lists, 'lists2': lists2})
 
 #api를 통해 약물의 정보를 가져옵니다.
 def test(name_medi, name_com) :

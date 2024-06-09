@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+
+:root {
+  --space-root: 1rem;
+  --space-xs: calc(var(--space-root) / 2);
+  --space-s: calc(var(--space-root) / 1.5);
+  --space-m: var(--space-root);
+  --space-l: calc(var(--space-root) * 1.5);
+  --space-xl: calc(var(--space-root) * 2);
+  --color-primary: mediumslateblue;
+  --color-secondary: black;
+  --color-tertiary: gray;
+  --base-border-radius: 0.25rem;
+  --font-family: "Roboto", sans-serif;
+  --font-size: 1.25rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  height: 100vh;
+  padding: var(--space-m);
+  font-size: var(--font-size);
+  font-family: var(--font-family);
+  line-height: 1.2;
+  background-color: var(--color-tertiary);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.notification-sound {
+  max-width: 600px;
+  padding: var(--space-xl);
+  border: 2px solid #ccc;
+  border-radius: var(--base-border-radius);
+  background-color: white;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: calc(var(--font-size) * 1.5);
+  margin-bottom: var(--space-l);
+}
+
+.sound-list {
+  margin-bottom: var(--space-l);
+}
+
+.sound-list h3 {
+  margin-bottom: var(--space-m);
+}
+
+.sound-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sound-list li {
+  margin-bottom: var(--space-xs);
+}
+
+.btn {
+  margin-right: var(--space-s);
+  cursor: pointer;
+  padding: var(--space-s) var(--space-xl);
+  border-radius: var(--base-border-radius);
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.btn--primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-primary);
+  color: white;
+}

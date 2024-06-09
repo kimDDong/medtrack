@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <link rel="stylesheet" href="{% static 'index.js' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인 페이지</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
 <div class="form-container">
@@ -24,10 +27,13 @@
                 </div>
             </div>
             <div class="btn-group">
-                <button class="btn" type="submit">Sign in</button>
+                <button class="btn" onclick="location.href='/main'"type="submit">Sign in</button>
+<!--                <button class="btn" onclick="location.href='/add-daily'"type="submit">Sign in</button>-->
+                <button class="btn" onclick="location.href='/signup'" type="test">Sign up</button>
+<!--                <button class="btn" onclick="moveUrl='127.0.0.1:8000/signup'">Sign up</button>-->
 <!--                <button class="btn" onclick="navigateTo('signup')">Sign up</button>-->
             </div>
-<!--            <div><a class="btn&#45;&#45;text" href="#0" onclick="navigateTo('signup')">administer</a></div>-->
+            <div><a class="btn--text" href="#0" onclick="navigateTo('signup')">administer</a></div>
         </div>
     </form>
 </div>

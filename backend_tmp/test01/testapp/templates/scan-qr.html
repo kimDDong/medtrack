@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'scan-qr.css' %}">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR 코드 스캔</title>
-  <link rel="stylesheet" href="./css/scan-qr.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.0/html5-qrcode.min.js"></script>
+<!--  <link rel="stylesheet" href="./css/scan-qr.css">-->
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.0/html5-qrcode.min.js"></script>-->
 </head>
 <body>
+<script src="{% static '/js/scan-qr.js' %}"></script>
+<script src="{% static '/js/tmp_qr.js' %}"></script>
+<script src="{% static '/js/tmp_qr2.js' %}"></script>
 <div class="form">
   <div class="form-inner">
     <header class="header">
@@ -15,11 +20,13 @@
       <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
     </header>
     <main>
-      <video id="qrVideo" width="300" height="300" autoplay></video>
-      <button class="btn btn--primary" onclick="startScanning('scan')">QR 코드 스캔하기</button>
+      <video id="video" autoplay></video>
     </main>
   </div>
 </div>
-<script src="./js/scan-qr.js"></script>
+<!--<script src="./js/tmp_qr.js"></script>-->
+<!--<script src="./js/tmp_qr2.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>-->
+<!--<script src="./js/scan-qr.js"></script>-->
 </body>
 </html>

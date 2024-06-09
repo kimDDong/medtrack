@@ -34,8 +34,10 @@ class medication_info(models.Model):
 class daily_intake_info(models.Model) :
     user_id = models.CharField(max_length=20, null=False, blank=False, default='test')
     # medication_id = models.ForeignKey(medication_info, on_delete=models.CASCADE)
+    medication = models.CharField(max_length=100, null=False, blank=False, default='test')
     date = models.DateField(null=False, blank=False)
     actual_intake = models.PositiveIntegerField(null=False, blank=False)
+    daily_intake = models.PositiveIntegerField(null=False, blank=False, default=3)
 
 class hospital_history(models.Model) :
     user_id = models.CharField(max_length=20, null=False, blank=False)
@@ -43,11 +45,13 @@ class hospital_history(models.Model) :
     date = models.DateField(null=False, blank=False)
     disease = models.CharField(max_length=100, null=False, blank=False)
     prescription = models.CharField(max_length=100, null=False, blank=False)
+    daily_intake = models.PositiveIntegerField(null=False, blank=False, default=3)
+    duration = models.PositiveIntegerField(null=False, blank=False, default=7)
 
 class voice_ai(models.Model) :
     user_id = models.CharField(max_length=20, null=False, blank=False)
     # user_id = models.ForeignKey(user_personal_info, on_delete=models.CASCADE)
-    parameters = models.CharField(max_length=100, null=False, blank=False) #temporary
+    parameters = models.FileField(upload_to='')
 
 class user_settings(models.Model) :
     user_id = models.CharField(max_length=20, null=False, blank=False)

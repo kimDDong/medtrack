@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'change-notification-sound.css' %}">
+  <link rel="stylesheet" href="{% static 'change-notification-sound.js' %}">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>알림 목소리 변경</title>
@@ -9,6 +12,7 @@
 <body>
 <div class="container">
   <div class="notification-sound">
+     <form method="POST" action="{% url 'change_sound' %}" enctype="multipart/form-data" novalidate>
     <h2>알림 목소리 변경</h2>
     <div class="sound-list">
       <h3>목소리 목록</h3>
@@ -18,10 +22,12 @@
     </div>
     <div class="sound-actions">
       <button class="btn btn--primary" onclick="recordSound()">목소리 녹음하기</button>
-      <input type="file" id="uploadSound" accept="audio/*" style="display: none;">
-      <button class="btn btn--primary" onclick="document.getElementById('uploadSound').click()">목소리 업로드</button>
+      <input type="file" id="uploadSound" name="uploadSound" id="uploadSound" accept="audio/*" style="display: none;">
+      <button class="btn btn--primary" onclick="document.getElementById('uploadSound').click()" type="button">목소리 업로드</button>
+      <button class="btn btn--primary"  type="submit">전송</button>
     </div>
     <button class="btn btn--secondary" onclick="navigateBack()">뒤로가기</button>
+  </form>
   </div>
 </div>
 <script src="./js/change-notification-sound.js"></script>

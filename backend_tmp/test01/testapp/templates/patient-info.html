@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'patient-info.css' %}">
+  <link rel="stylesheet" href="{% static 'patient-info.js' %}">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>환자 정보</title>
@@ -13,18 +16,32 @@
     <div class="info-section">
       <h3>최근 내원 이력</h3>
       <ul id="recentVisits">
+        {% for list in lists %}
+        <li>
+          <br><b>{{list.date}}: {{list.disease}}</b>
         <!-- 최근 내원 이력이 여기에 동적으로 추가될 것입니다. -->
+        {% endfor %}
       </ul>
     </div>
     <div class="info-section">
       <h3>처방 목록</h3>
       <ul id="prescriptionList">
         <!-- 처방 목록이 여기에 동적으로 추가될 것입니다. -->
+        {% for list in lists %}
+        <li>
+          <br><b>{{list.date}}: {{list.prescription}} - 용법: 1일 {{list.daily_intake}}회, 기간:{{list.duration}}일</b>
+        <!-- 최근 내원 이력이 여기에 동적으로 추가될 것입니다. -->
+        {% endfor %}
       </ul>
     </div>
     <div class="info-section">
       <h3>약물 복용 여부</h3>
       <p id="medicationStatus">약물 복용 여부를 여기에 출력합니다.</p>
+      {% for list in lists2 %}
+      <li>
+          <br><b>{{list.date}}: {{list.medication}} - {{list.daily_intake}} 중 {{list.actual_intake}}</b>
+        <!-- 최근 내원 이력이 여기에 동적으로 추가될 것입니다. -->
+        {% endfor %}
     </div>
     <div class="info-actions">
       <button class="btn btn--primary" onclick="savePatientInfo()">환자 정보 저장</button>
@@ -34,5 +51,15 @@
   </div>
 </div>
 <script src="./js/patient-info.js"></script>
+<script>
+    function print(index) {
+        var actualIntakeElement = document.getElementById('actualIntake_' + index);
+        var currentIntake = parseInt(actualIntakeElement.innerText);
+        currentIntake++;
+        actualIntakeElement.innerText = currentIntake;
+        // 여기에 복용 횟수 증가에 대한 추가적인 처리를 할 수 있습니다.
+        // 예를 들어, 서버에 업데이트를 요청하는 등의 작업을 수행할 수 있습니다.
+    }
+</script>
 </body>
 </html>
